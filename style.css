@@ -1,0 +1,939 @@
+/* Change these colors to update the whole website */
+:root {
+  --green: #0c3b32;
+  --green-light: #176653;
+  --gold: #cba85c;
+  --cream: #fbf8ef;
+  --text: #19352d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background-color: var(--cream);
+
+  /* Small repeating gold pattern */
+  background-image: radial-gradient(#cba85c22 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: var(--cream);
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 2px 12px #0c3b3220;
+}
+
+/* for the donation box on each page */
+header .donate-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--green);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+header .donate-button:hover {
+  background: #d9b96f;
+}
+
+.donate-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.donate-text {
+  font-size: 1rem;
+}
+
+/* Menu button stays on the left; logo is centered */
+header .menu-button {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;            /* big, easy tap target */
+  padding: 8px 14px;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  background: var(--green);
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+
+  animation: menu-pulse 1.6s ease-in-out 3;
+}
+
+@keyframes menu-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 #cba85c00; }
+  50%      { box-shadow: 0 0 0 10px #cba85c66; }
+}
+
+header .menu-button:hover {
+  background: var(--green-light);
+}
+
+.menu-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.menu-text {
+  font-size: 1rem;
+}
+
+.header-logo {
+  display: block;
+  height: 150px;      /* change this to resize the logo */
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .header-logo {
+    height: 120px;
+    width: auto;
+  }
+}
+
+/* Very small phones: keep the labels but shrink slightly.
+   (This block must stay BELOW the .header-logo rules above to work.) */
+@media (max-width: 400px) {
+  header .menu-button,
+  header .donate-button { padding: 6px 10px; gap: 5px; }
+
+  .menu-text,
+  .donate-text { font-size: 0.8rem; }
+
+  .header-logo { height: 90px; }
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  margin: 8px 0 16px;
+  color: var(--green);
+}
+
+h3 {
+  margin-top: 0;
+  color: var(--green);
+}
+
+.menu-button,
+.close-button {
+  border: 0;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* Side menu */
+.side-menu {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 285px;
+  height: 100%;
+  padding: 22px;
+  background: var(--green);
+  box-shadow: 3px 0 14px #0005;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+/* JavaScript adds this class to open the menu */
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.close-button {
+  float: right;
+  color: var(--gold);
+}
+
+.side-menu a {
+  clear: both;
+  display: block;
+  padding: 16px 8px;
+  border-bottom: 1px solid #ffffff33;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.side-menu a:hover {
+  padding-left: 16px;
+  color: var(--gold);
+  transition: 0.2s;
+}
+
+/* Dark area behind the open menu */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: none;
+  background: #001a14aa;
+}
+
+.overlay.show {
+  display: block;
+}
+
+main {
+  flex: 1;
+}
+
+/* Rounded top creates a simple arch shape */
+.hero,
+.page-content {
+  overflow: hidden;
+  border: 2px solid #cba85c66;
+  border-radius: 160px 160px 12px 12px;
+  background: #fffdf8e8;
+  box-shadow: 0 10px 30px #0c3b3214;
+
+  width: min(800px, calc(100% - 48px));
+  margin: 52px auto;
+  padding: 75px 42px 48px;
+  text-align: center;
+}
+
+.hero {
+  max-width: 850px;
+  margin: 68px auto;
+  padding: 95px 28px 80px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+}
+
+.hero p:not(.eyebrow),
+.page-content > p {
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 14px 22px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  color: white;
+  background: var(--green);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--green-light);
+}
+
+.card,
+table {
+  width: 100%;
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid #cba85c77;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 12px #00000010;
+}
+
+table {
+  padding: 0;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e8e0cf;
+}
+
+th {
+  color: white;
+  background: var(--green);
+}
+
+footer {
+  padding: 24px;
+  border-top: 4px solid var(--gold);
+  color: white;
+  background: var(--green);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Smaller spacing on phones */
+@media (max-width: 600px) {
+  .hero {
+    margin: 35px auto;   /* auto keeps the card centered on phones */
+    padding: 75px 22px 55px;
+  }
+}
+
+/* Modern Arabic greeting panel */
+.islamic-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 28px;
+  padding: 18px;
+  border-top: 2px solid #0c3b32;
+  border-bottom: 2px solid #0c3b32;
+  animation: greeting-appears 1.4s ease-out both;
+}
+
+.hero .islamic-greeting .arabic-greeting {
+  margin: 0;
+  color: var(--green);
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.hero .islamic-greeting .english-greeting {
+  margin: 2px 0 0;
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-style: italic;
+}
+
+/* The greeting slides down gently when the page opens */
+@keyframes greeting-appears {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Events page */
+.event-list {
+  display: grid;
+  gap: 34px;
+  margin-top: 34px;
+}
+
+.event-card {
+  overflow: hidden;
+  border: 1px solid #dce7e2;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 22px #0b3d350b;
+}
+
+.event-copy {
+  padding: 26px 26px 20px;
+  text-align: center;
+}
+
+.event-copy h3 {
+  margin: 7px 0 10px;
+  font-size: 1.55rem;
+}
+
+.event-copy p:last-child {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.event-label {
+  margin: 0;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+/* Width: 100% makes the flyers resize on phones */
+.event-image {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.event-button {
+  display: inline-block;
+  margin-top: 17px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: white;
+  background: var(--green);
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.event-button:hover {
+  background: var(--green-light);
+}
+
+/* Mixlr buttons now appear one under the other */
+.mixlr-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.mixlr-buttons .event-button {
+  width: fit-content;
+  margin-top: 0;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .mixlr-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Services page */
+.service-list {
+  display: grid;
+  gap: 34px;
+  margin-top: 34px;
+}
+
+.service-card {
+  overflow: hidden;
+  border: 1px solid #dce7e2;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 22px #0b3d350b;
+}
+
+.service-copy {
+  padding: 26px 26px 20px;
+  text-align: center;
+}
+
+.service-copy h3 {
+  margin: 7px 0 10px;
+  font-size: 1.55rem;
+}
+
+.service-copy p:last-child {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.service-label {
+  margin: 0;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+/* Image resizes automatically on phones */
+.service-image {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ===================================================== */
+/* HOME PAGE (index.html)                                */
+/* ===================================================== */
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hero-actions .button {
+  margin-top: 0;
+}
+
+.button.gold {
+  color: var(--green);
+  background: var(--gold);
+  border-color: var(--green);
+}
+
+.button.gold:hover {
+  background: #d9b96f;
+}
+
+/* Generic section */
+.section {
+  width: min(1000px, calc(100% - 32px));
+  margin: 64px auto;
+  text-align: center;
+  animation: rise 0.9s ease-out both;
+}
+
+.section h2 {
+  margin: 8px 0 10px;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+}
+
+/* Gold line with a star in the middle */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(260px, 70%);
+  margin: 0 auto 30px;
+  color: var(--gold);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.divider::after {
+  transform: scaleX(-1);
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--green-light);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  color: var(--gold);
+}
+
+/* Prayer widget */
+.widget-card {
+
+  padding: 12px;
+  border: 1px solid #cba85c77;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 22px #0b3d350b;
+}
+
+.prayer-widget {
+  display: block;
+  width: 100%;
+  height: 400px;   /* adjust if the widget looks cut off */
+  border: 0;
+  border-radius: 10px;
+}
+
+/* Quick link cards */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.quick-card {
+  padding: 28px 16px;
+  border: 1px solid #cba85c77;
+  border-radius: 16px;
+  color: var(--text);
+  background: white;
+  box-shadow: 0 4px 14px #0b3d3510;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.quick-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 26px #0b3d3524;
+}
+
+.quick-icon {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 2.2rem;
+}
+
+.quick-card h3 {
+  margin: 0 0 6px;
+}
+
+.quick-card p {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Weekly highlight cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.info-card {
+  padding: 28px 22px;
+  border: 1px solid #dce7e2;
+  border-top: 4px solid var(--gold);
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 22px #0b3d350b;
+}
+
+.info-card h3 {
+  margin: 8px 0 10px;
+  font-size: 1.4rem;
+}
+
+.info-card p:not(.event-label) {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Verse band */
+.verse {
+  width: min(900px, calc(100% - 32px));
+  margin: 64px auto;
+  padding: 32px 28px;
+  border: 2px solid var(--gold);
+  border-radius: 12px 12px 120px 120px;
+  color: white;
+  background:
+    radial-gradient(circle at 50% 0%, #176653, transparent 70%),
+    var(--green);
+  text-align: center;
+  box-shadow: 0 10px 30px #0c3b3230;
+}
+
+.verse-text {
+ 
+  font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.verse-ref {
+  margin: 16px 0 0;
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+}
+
+/* Donation banner */
+.donate-banner {
+  width: min(1000px, calc(100% - 32px));
+  margin: 64px auto;
+  padding: 52px 28px;
+  border: 2px solid #cba85c88;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, #cba85c33, #fffdf8 60%),
+    white;
+  text-align: center;
+  box-shadow: 0 8px 22px #0b3d350b;
+}
+
+.donate-banner h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+}
+
+.donate-banner p:not(.eyebrow) {
+  max-width: 560px;
+  margin: 0 auto 10px;
+  line-height: 1.7;
+}
+
+/* Visit section */
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.visit-card {
+  padding: 28px 24px;
+  border: 1px solid #cba85c77;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 22px #0b3d350b;
+  text-align: left;
+}
+
+.visit-card h3 {
+  font-size: 1.5rem;
+}
+
+.visit-card p {
+  line-height: 1.6;
+}
+
+.visit-card a:not(.button) {
+  color: var(--green-light);
+  font-weight: bold;
+}
+
+.map {
+  width: 100%;
+  min-height: 320px;
+  border: 2px solid #cba85c77;
+  border-radius: 16px;
+}
+
+/* Fade-up when sections come into view on page load */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section { animation: none; }
+  .quick-card { transition: none; }
+}
+
+/* Tablets and phones */
+@media (max-width: 800px) {
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .info-grid { grid-template-columns: 1fr; }
+  .visit-grid { grid-template-columns: 1fr; }
+  .map { min-height: 280px; }
+}
+
+@media (max-width: 400px) {
+  .quick-grid { grid-template-columns: 1fr; }
+}
+
+
+/* Who Are We? statement on the home page */
+.beliefs-card {
+  max-width: 760px;
+  margin: 30px auto 0;
+  padding: 28px;
+  border: 1px solid #cba85c99;
+  border-top: 5px solid var(--gold);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fffdf8, #ffffff);
+  box-shadow: 0 14px 30px #0b3d3514;
+  text-align: center;
+}
+
+.beliefs-heading {
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.beliefs-kicker {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.18em;
+}
+
+.beliefs-card h3 {
+  margin: 0;
+  color: var(--green);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+}
+
+.beliefs-divider {
+  width: 76px;
+  height: 3px;
+  margin: 16px auto 0;
+  border-radius: 99px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+.beliefs-card > p {
+  margin: 0 0 16px;
+  line-height: 1.7;
+}
+
+.beliefs-card .beliefs-lead {
+  color: var(--green);
+  font-size: 1.12rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.beliefs-card .beliefs-conclusion {
+  padding: 18px 20px;
+  border-radius: 10px;
+  background: #0c3b32;
+  color: white;
+  text-align: center;
+}
+
+.beliefs-list {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beliefs-list li {
+  position: relative;
+  padding: 14px 16px 14px 38px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  background: #fbf8ef;
+  line-height: 1.65;
+}
+
+.beliefs-list li::before {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  content: "";
+}
+
+.beliefs-card .beliefs-source {
+  margin-bottom: 0;
+  color: #52665f;
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.beliefs-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 12px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--green);
+  background: #fffaf0;
+  font-family: Arial, sans-serif;
+  font-size: .9rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.beliefs-read-more:hover {
+  color: white;
+  background: var(--green);
+}
+
+/* Phone-friendly spacing */
+@media (max-width: 600px) {
+  .beliefs-card {
+    padding: 22px 18px;
+  }
+
+  .beliefs-list li {
+    padding-left: 34px;
+  }
+}
+
+
+/* Vertical Mawaqit prayer-times display */
+.mobile-prayer-widget {
+  display: block;
+  width: 100%;
+  height: 500px;
+  border: 0;
+  border-radius: 10px;
+}
+
+/* Taller on phones so all prayer times remain visible */
+@media (max-width: 600px) {
+  .mobile-prayer-widget {
+    height: 500px;
+  }
+}
+
+/* Reduces the gap between the Mawaqit widget and prayer information */
+.prayer-times-section {
+  margin-bottom: 24px;
+}
+
+.prayer-services-section {
+  margin-top: 24px;
+}

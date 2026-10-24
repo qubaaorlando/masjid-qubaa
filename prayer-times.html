@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masjid Qubaa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    
+    <button class="menu-button" id="menuButton" aria-label="Open menu">
+      <span class="menu-icon">☰</span>
+      <span class="menu-text">MENU</span>
+    </button>
+
+    <a href="index.html">
+     <img class="header-logo" src="masjid-qubaa-new-logo.png" alt="Masjid Qubaa">
+    </a>
+   
+     
+    <a class="donate-button"
+     href="https://www.zeffy.com/en-US/donation-form/donation-for-masjid-qubaa"
+     target="_blank" rel="noopener">
+      <span class="donate-icon">♥</span>
+      <span class="donate-text">DONATE</span>
+    </a>
+
+  </header>
+
+  <nav id="sideMenu" class="side-menu">
+    <button class="close-button" id="closeButton">×</button>
+    <a href="index.html">Home</a>
+    <a href="prayer-times.html">Prayer Times</a>
+    <a href="events.html">Events</a>
+    <a href="https://www.zeffy.com/en-US/donation-form/donation-for-masjid-qubaa" target="_blank" rel="noopener">Donation</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div id="overlay" class="overlay"></div>
+
+ <section class="section prayer-times-section">
+  <p class="eyebrow">PRAYER TIMES</p>
+  <h2>Today at Masjid Qubaa</h2>
+  <div class="divider"><span>✦</span></div>
+
+  <div class="widget-card">
+    <iframe
+      class="prayer-widget vertical-prayer-widget"
+      title="Masjid Qubaa prayer times"
+      src="https://mawaqit.net/en/m/masjid-qubaa-orlando-32806-united-states?showNotification=0&amp;showSearchButton=0&amp;showFooter=0&amp;showFlashMessage=0&amp;view=mobile"
+      frameborder="0"
+      scrolling="no"
+    ></iframe>
+  </div>
+</section>
+
+<section class="section prayer-services-section">
+ 
+  <div class="divider"><span>✦</span></div>
+
+  <div class="service-list">
+    <article class="service-card">
+      <div class="service-copy">
+        
+        <h3>5 Daily Prayers</h3>
+        <p>Join us for all five daily prayers at Masjid Qubaa.</p>
+      </div>
+
+      <img
+        class="service-image"
+        src="Prayer-is-must.png"
+        alt="Prayer is prescribed for believers at fixed times"
+      >
+    </article>
+
+    <article class="service-card jumaa-service">
+      <div class="service-copy">
+        
+        <h3>Friday Prayer</h3>
+        <p>
+          Join our local Imam for Jumu'ah prayer at 1:30 PM and a meaningful
+          khutbah offered in both Arabic and English.
+        </p>
+      </div>
+
+      <img
+        class="service-image"
+        src="masjid-qubaa-jumaa.png"
+        alt="Friday prayer at Masjid Qubaa"
+      >
+    </article>
+  </div>
+</section>
+  
+  <footer>© 2026 Masjid Qubaa · 3043 Curry Ford Rd, Orlando, FL 32806</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
